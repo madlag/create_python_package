@@ -23,7 +23,7 @@ setup(name='create_python_package',
       license='MIT',
       packages=['create_python_package'],
       install_requires=[
-          'jinja2', 'click'
+          'jinja2', 'click', 'sh'
       ],
       test_suite='nose.collector',
       tests_require=['nose', 'nose-cover3'],

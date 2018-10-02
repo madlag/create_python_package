@@ -1,6 +1,7 @@
 import jinja2
 import os
 import click
+import sh
 
 def rec_split(s):
   rest, tail = os.path.split(s)
@@ -11,7 +12,7 @@ def rec_split(s):
   
 
   
-def copy_directory(source, dest, dir_names, variables):
+def copy_directory(source, dest, dir_names, variables, git):
   """
   Copy directory source to dest, renaming directory names using dir_names, and applying jinja2 templates
   using the variables.
@@ -32,14 +33,18 @@ def copy_directory(source, dest, dir_names, variables):
       content = t.render(variables)
       dest_file = open(dest_filename, "w")
       dest_file.write(content)
-      dest_file.close()  
+      dest_file.close()
+      if git:
+        gitadd = sh.git("add", "-v", dest_filename).stdout.decode("utf-8")
+        click.echo("git " + gitadd, nl=False)
 
 
       
 @click.command()
+@click.option('--git', '-g', is_flag=True)
 @click.argument('name')
 @click.argument('dest', default = '')
-def run(name, dest):
+def run(git, name, dest):
   if dest is '':
     dest = name
   variables = {"package_name":name}
@@ -47,5 +52,6 @@ def run(name, dest):
   copy_directory(os.path.join(os.path.dirname(__file__), "template"), 
                  dest,
                  dir_names,
-                 variables)
+                 variables,
+                 git)
   
