@@ -10,7 +10,9 @@ def cli(ctx):
 @click.pass_context
 @click.argument('path', default = None, type=click.Path(exists = True, resolve_path = True))
 @click.argument('output', default = None, type=click.Path(resolve_path = True))
-def command1(ctx, path, output):
+@click.option('--arg', '-a', is_flag = True)
+def command1(ctx, path, output, arg):
+    click.echo(click.style("Hello world !", fg="red"))
     print(path + ":" + run1(path, output))
 
 @cli.command()
