@@ -25,7 +25,7 @@ setup(name='{{package_name}}',
       test_suite='nose.collector',
       tests_require=['nose', 'nose-cover3'],
       entry_points={
-          'console_scripts': ['{{package_name}}-run={{package_name}}.command_line:main'],
+          'console_scripts': ['{{package_name}}_run={{package_name}}.command_line:main'],
       },
       include_package_data=True,
       zip_safe=False)
