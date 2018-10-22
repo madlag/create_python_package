@@ -1,2 +1,2 @@
-recursive-include create_python_package/template *.py
+recursive-include create_python_package/template *
 global-exclude __pycache__
