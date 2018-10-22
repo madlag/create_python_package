@@ -21,7 +21,10 @@ def copy_directory(source, dest, dir_names, variables, git):
   for root, directories, files in os.walk(source):
     rel_d = rec_split(os.path.relpath(root, source))
     rel_d = os.path.join(*map(lambda x : dir_names.get(x, x), rel_d))
-    
+
+    # Fix, because the install creates all those spurious __pycache__ directories
+    if rel_d.endswith("__pycache__"):
+      continue
     for f in files:
       src_filename = os.path.join(root, f)
       dest_filename = os.path.join(dest, rel_d, f)
