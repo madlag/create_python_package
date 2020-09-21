@@ -48,7 +48,7 @@ def copy_directory(source, dest, dir_names, variables, git):
 @click.argument('name')
 @click.argument('dest', default = '')
 def run(git, name, dest):
-  if dest is '':
+  if dest == '':
     dest = name
   variables = {"package_name":name}
   dir_names = {"package_name":name}
